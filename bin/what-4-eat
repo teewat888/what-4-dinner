@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require_relative "../config/environment.rb"
+
+prompt = TTY::Prompt.new
+system("clear")
+puts prompt.ask("what is your name")
+
