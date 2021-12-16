@@ -9,7 +9,6 @@ class What4eat::APIClient
             res = Net::HTTP.get_response(uri)
             if res.is_a?(Net::HTTPSuccess)
                 results =  JSON.parse(res.body)
-                #What4eat::Recipe.new_from_api(results)
             end
         rescue StandardError
             puts "received an error from the API"
