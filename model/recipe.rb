@@ -16,6 +16,15 @@ class What4eat::Recipe
        
     end
 
+    def self.find(id)
+    end
+
+    def ingredients
+    end
+
+    def methods
+    end
+
     def self.all
         @@all
     end
@@ -30,6 +39,10 @@ class What4eat::Recipe
 
     def self.offset(res)
         res["offset"]
+    end
+
+    def details
+        @details ||= What4eat::APIClient.get_recipe_details
     end
 
 end
