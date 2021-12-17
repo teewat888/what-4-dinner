@@ -16,13 +16,22 @@ class What4eat::Recipe
        
     end
 
+    def self.add_details_from_api(id, res)
+        recipe = find(id)
+        recipe.ingredients = format_ingredients(res)
+        recipe.methods = format_methods(res)
+        recipe
+    end
+
     def self.find(id)
+        @@all.detect { |el| el.id = id}
     end
 
-    def ingredients
+    def format_ingredients(res)
+        
     end
 
-    def methods
+    def format_methods(res)
     end
 
     def self.all

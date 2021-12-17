@@ -4,29 +4,15 @@ class What4eat::APIClient
 
     def self.get_recipes_by_keyword(keyword)
         uri = URI.parse(BASE_URL + '/complexSearch?query=' + keyword + '&apiKey=' + API_KEY)
-        begin 
-            res = Net::HTTP.get_response(uri)
-            if res.is_a?(Net::HTTPSuccess)
-                results =  JSON.parse(res.body)
-            end
-        rescue StandardError
-            puts "received an error from the API"
-        end
+        results = uri_json(uri)
     end
 
     def self.get_recipe_details(id)
         uri = URI.parse(BASE_URL + '/' + id + '/information?instructionsRequired=true&apiKey=' + API_KEY)
-        begin 
-            res = Net::HTTP.get_response(uri)
-            if res.is_a?(Net::HTTPSuccess)
-                results =  JSON.parse(res.body)
-            end
-        rescue StandardError
-            puts "received an error from the API"
-        end
+        results = uri_json(uri)   
     end
 
-    def uri_json(uri)
+    def self.uri_json(uri)
         begin 
             res = Net::HTTP.get_response(uri)
             if res.is_a?(Net::HTTPSuccess)

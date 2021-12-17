@@ -7,17 +7,18 @@ class What4eat::CLI
         if total_results(results) > 0
             What4eat::Recipe.new_from_api(results)
             id = prompt.select("What recipe you like to cook?", recipes_menu, per_page: 10)
-            recipe_details = What4eat::APIClient.get_recipe_details
-            recipe = What4eat::Recipe.find(id)
-            #recipe.ingredients = 
-            #recipe.methods = 
+
+            recipe_details = What4eat::APIClient.get_recipe_details(id)
+
+            recipe = What4eat::Recipe.add_details_from_api(id, recipe_details)
+            
+            print_recipe(recipe)
         else
             puts "can not find your query, can you try something like pasta"
             start
         end
-    #print_recipes
-    #puts What4eat::Recipe.all
-    choice = prompt.ask("what you want to do next (y/n)")
+    
+        choice = prompt.ask("what you want to do next (y/n)")
         if choice == 'y'
             reset_results
             start
@@ -33,10 +34,12 @@ class What4eat::CLI
         choices
     end
 
-    def print_recipes
-        What4eat::Recipe.all.each do |recipe|
-            puts recipe.title
-        end
+    # def print_recipes
+    #     What4eat::Recipe.all.each do |recipe|
+    #         puts recipe.title
+    #     end
+    # end
+    def print_recipe(recipe)
     end
 
     def reset_results
