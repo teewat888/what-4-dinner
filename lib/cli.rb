@@ -11,7 +11,7 @@ class What4eat::CLI
             recipe_details = What4eat::APIClient.get_recipe_details(id)
 
             recipe = What4eat::Recipe.add_details_from_api(id, recipe_details)
-            
+
             print_recipe(recipe)
         else
             puts "can not find your query, can you try something like pasta"
@@ -34,12 +34,10 @@ class What4eat::CLI
         choices
     end
 
-    # def print_recipes
-    #     What4eat::Recipe.all.each do |recipe|
-    #         puts recipe.title
-    #     end
-    # end
     def print_recipe(recipe)
+        puts recipe.title
+        puts recipe.ingredients
+        puts recipe.methods
     end
 
     def reset_results

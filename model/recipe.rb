@@ -24,14 +24,22 @@ class What4eat::Recipe
     end
 
     def self.find(id)
-        @@all.detect { |el| el.id = id}
+        @@all.detect { |el| el.id == id}
     end
 
-    def format_ingredients(res)
-        
+    def self.format_ingredients(res)
+        res["extendedIngredients"].collect do |el|
+            el["originalString"]
+        end
+        #"dummy ingredients"
     end
 
-    def format_methods(res)
+    def self.format_methods(res)
+        res["analyzedInstructions"].collect do |steps|
+            steps["steps"].collect do |step|
+                step["step"]
+            end
+        end
     end
 
     def self.all

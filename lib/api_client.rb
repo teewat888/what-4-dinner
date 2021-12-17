@@ -8,7 +8,7 @@ class What4eat::APIClient
     end
 
     def self.get_recipe_details(id)
-        uri = URI.parse(BASE_URL + '/' + id + '/information?instructionsRequired=true&apiKey=' + API_KEY)
+        uri = URI.parse(BASE_URL + '/' + id.to_s + '/information?instructionsRequired=true&apiKey=' + API_KEY)
         results = uri_json(uri)   
     end
 
