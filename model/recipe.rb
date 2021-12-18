@@ -31,7 +31,6 @@ class What4eat::Recipe
         res["extendedIngredients"].collect do |el|
             el["originalString"]
         end
-        #"dummy ingredients"
     end
 
     def self.format_methods(res)

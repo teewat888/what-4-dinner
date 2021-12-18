@@ -6,7 +6,7 @@ class What4eat::CLI
     results = What4eat::APIClient.get_recipes_by_keyword(keyword)
         if total_results(results) > 0
             What4eat::Recipe.new_from_api(results)
-            id = prompt.select("What recipe you like to cook?", recipes_menu, per_page: 10)
+            id = prompt.select("What recipe you like to cook?", recipe_list_items, per_page: 10)
 
             recipe_details = What4eat::APIClient.get_recipe_details(id)
 
@@ -27,7 +27,7 @@ class What4eat::CLI
         end
     end
 
-    def recipes_menu
+    def recipe_list_items
         choices = What4eat::Recipe.all.collect do |el|
             {name: el.title, value: el.id}
         end
