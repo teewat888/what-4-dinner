@@ -8,10 +8,6 @@ class What4eat::Dinner
         @@all << self
     end
 
-    def self.new_from_page(dinner)
-        self.new(dinner.text, dinner.attribute("href").value)
-    end
-
     def self.all
         @@all
     end

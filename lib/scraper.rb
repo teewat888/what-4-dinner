@@ -19,7 +19,7 @@ class What4eat::Scraper
         self.get_dinners.each do |dinner|
             # p dinner.text
             # p dinner.attribute("href").value
-            What4eat::Dinner.new_from_page(dinner)
+            What4eat::Dinner.new(dinner.text, dinner.attribute("href").value)
         end
     end
 end
