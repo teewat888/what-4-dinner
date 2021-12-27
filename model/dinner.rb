@@ -11,4 +11,8 @@ class What4eat::Dinner
     def self.all
         @@all
     end
+
+    def find_by(name)
+        @@all.detect {|el| el.name == name}
+    end
 end
