@@ -1,8 +1,8 @@
-require "pry"
-require "nokogiri"
-require "open-uri"
-#class What4eat::Scraper
-class Scraper
+# require "pry"
+# require "nokogiri"
+# require "open-uri"
+# class What4eat::Scraper
+class What4eat::Scraper
     def get_page
         #scrape from top ten dinners right now (https://www.taste.com.au/dinner)
         Nokogiri::HTML(open("https://www.taste.com.au/dinner"))
@@ -17,10 +17,10 @@ class Scraper
 
     def make_dinners
         self.get_dinners.each do |dinner|
-            p dinner.text
-            p dinner.attribute("href").value
+            # p dinner.text
+            # p dinner.attribute("href").value
+            What4eat::Dinner.new_from_page(dinner)
         end
     end
 end
 
-Scraper.new.make_dinners

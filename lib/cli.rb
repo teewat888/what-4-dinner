@@ -1,5 +1,6 @@
 class What4eat::CLI
     def start
+   # What4eat::Scraper.new.make_dinners
     prompt = TTY::Prompt.new
     #system("clear")
     keyword = prompt.ask("what you want to have tonight")
