@@ -21,14 +21,20 @@ class What4eat::Scraper
 
     def make_details(url)
         details = self.get_dinner_details(url)
-        #puts details
-        ingredients = details.css("div#tabIngredients ul li div.ingredient-description").text.strip
-        puts ingredients
-        # add this to remove span tags and content 
+        
+
+        ingredients = details.css("div#tabIngredients ul li div.ingredient-description").collect do |el|
+            el.text.delete("\n").strip
+            end
+            
+            # add this to remove span tags and content 
         details.css("div#tabMethodSteps ul li div.recipe-method-step-content").search('//span').remove
-        # end added
-        methods = details.css("div#tabMethodSteps ul li div.recipe-method-step-content").text.strip
+            # end added
+        methods = details.css("div#tabMethodSteps ul li div.recipe-method-step-content").collect do |el|
+            el.text.strip
+            end
         What4eat::Dinner.add_details_from_scraper(url, ingredients, methods)
+    
     end
 
     def make_dinners
