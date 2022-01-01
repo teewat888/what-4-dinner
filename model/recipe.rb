@@ -35,8 +35,8 @@ class What4eat::Recipe
 
     def self.format_methods(res)
         res["analyzedInstructions"].collect do |steps|
-            steps["steps"].collect do |step|
-                step["step"]
+            steps["steps"].collect.with_index do |step, index|
+                "Step #{index+1}: #{step["step"]}"
             end
         end
     end
