@@ -10,7 +10,7 @@ class TestScraper
 
     #def get_page_details(url)
     def get_page_details
-        Nokogiri::HTML(open("https://www.taste.com.au"+"/recipes/gingerbread-men/3a04ab1d-a84a-424f-800a-7ebcbe92fa09?r=dinner&h=Dinner"))
+        Nokogiri::HTML(open("https://www.taste.com.au"+"/recipes/curtis-stones-stir-fried-rice-noodles-chicken-vegetables/TsHdEQ98?r=dinner&h=Dinner"))
     end
 
     def get_dinners
@@ -26,6 +26,10 @@ class TestScraper
         ## add this to remove span tags and content details.css("div#tabMethodSteps ul li div.recipe-method-step-content").search('//span').remove
         #methods = details.css("div#tabMethodSteps ul li div.recipe-method-step-content").text.strip
         res = self.get_page_details.css("article.row.tabs-container div.tabs.mobile-only").first
+        methods = res.css("div#tabMethodSteps ul li div.recipe-method-step-content").collect do |el|
+            el.search('.tooltip').remove
+            el.text.strip
+        end
         binding.pry
     end
 

@@ -70,8 +70,13 @@ class What4eat::CLI
     end
 
     def print_recipe(recipe)
+        puts ""
         puts recipe.title
+        puts ""
+        puts "## Ingredients ##"
         puts recipe.ingredients
+        puts ""
+        puts "## Methods ##"
         puts recipe.methods
     end
 

@@ -27,11 +27,10 @@ class What4eat::Scraper
             el.text.delete("\n").strip
             end
             
-            # add this to remove span tags and content 
-        details.css("div#tabMethodSteps ul li div.recipe-method-step-content").search('//span').remove
-            # end added
-        methods = details.css("div#tabMethodSteps ul li div.recipe-method-step-content").collect do |el|
-            el.text.strip
+            
+        methods = details.css("div#tabMethodSteps ul li div.recipe-method-step-content").collect.with_index do |el, index|
+            el.search('.tooltip').remove
+            "Step #{index+1}: #{el.text.strip}"
             end
         What4eat::Dinner.add_details_from_scraper(url, ingredients, methods)
     
