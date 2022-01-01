@@ -15,18 +15,27 @@ class What4eat::Scraper
         #binding.pry
     end
 
-    def get_dinner_details
-
+    def get_dinner_details(url)
+        self.get_page_details(url).css("article.row.tabs-container div.tabs.mobile-only").first
     end
 
-    def make_details
+    def make_details(url)
+        details = self.get_dinner_details(url)
+        #puts details
+        ingredients = details.css("div#tabIngredients ul li div.ingredient-description").text.strip
+        puts ingredients
+        # add this to remove span tags and content 
+        details.css("div#tabMethodSteps ul li div.recipe-method-step-content").search('//span').remove
+        # end added
+        methods = details.css("div#tabMethodSteps ul li div.recipe-method-step-content").text.strip
+        What4eat::Dinner.add_details_from_scraper(url, ingredients, methods)
     end
 
     def make_dinners
         self.get_dinners.each do |dinner|
-            name = dinner.text
+            title = dinner.text
             url = dinner.attribute("href").value
-            What4eat::Dinner.new(name, url)
+            What4eat::Dinner.new(title, url)
         end
     end
 end

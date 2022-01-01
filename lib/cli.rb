@@ -5,13 +5,16 @@ class What4eat::CLI
     system("clear")
     # keyword = prompt.ask("what you want to have tonight")
     
-    choices = [{name: "Search dinner idea by keyword", value: "useAPI"},
-                    {name: "Top 10 Dinner ideas from taste.com.au", value: "useScraper"}]
+    choices = [{name: "Search dinner ideas by keyword", value: "useAPI"},
+                    {name: "Top 10 Dinner ideas from taste.com.au", value: "useScraper"},
+                {name: "Exit", value: "exit"}]
     main_choice = prompt.select("What do you like to do?", choices)
         if main_choice == "useAPI"
             api_menu(prompt)
-        else
+        elsif main_choice == "useScraper"
             scraper_menu(prompt)
+        else
+            exit
         end
     
     
@@ -44,12 +47,17 @@ class What4eat::CLI
 
     def scraper_menu(prompt)
         What4eat::Scraper.new.make_dinners
-        id = prompt.select("Which one of top ten dinner you like to see the recipe?", dinner_list_items, per_page: 10)
+
+        url = prompt.select("Which one of top ten dinner you like to see the recipe?", dinner_list_items, per_page: 10)
+
+        dinner_details = What4eat::Scraper.new.make_details(url)
+
+        print_recipe(dinner_details)
     end
 
     def dinner_list_items
         choices = What4eat::Dinner.all.collect do |el|
-            {name: el.name, value: el.url}
+            {name: el.title, value: el.url}
         end
         choices
     end

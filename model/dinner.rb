@@ -1,9 +1,9 @@
 class What4eat::Dinner 
-    attr_accessor :url, :name, :ingredients, :methods
+    attr_accessor :url, :title, :ingredients, :methods
     @@all = []
 
-    def initialize(name = nil, url = nil)
-        @name = name
+    def initialize(title = nil, url = nil)
+        @title = title
         @url = url
         @@all << self
     end
@@ -12,7 +12,14 @@ class What4eat::Dinner
         @@all
     end
 
-    def find_by(name)
-        @@all.detect {|el| el.name == name}
+    def self.add_details_from_scraper(url, ingredients, methods)
+        dinner = self.find_by(url)
+        dinner.ingredients = ingredients
+        dinner.methods = methods
+        dinner
+    end
+
+    def self.find_by(url)
+        @@all.detect {|el| el.url == url}
     end
 end

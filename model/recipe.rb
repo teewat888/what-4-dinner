@@ -57,8 +57,5 @@ class What4eat::Recipe
         res["offset"]
     end
 
-    def details
-        @details ||= What4eat::APIClient.get_recipe_details
-    end
 
 end
