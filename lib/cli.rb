@@ -1,4 +1,5 @@
 $prompt = TTY::Prompt.new
+$pastel = Pastel.new
 
 class What4eat::CLI
 
@@ -73,14 +74,19 @@ class What4eat::CLI
     end
 
     def print_recipe(recipe)
-        puts ""
-        puts recipe.title
-        puts ""
-        puts "## Ingredients ##"
+        new_line
+        puts $pastel.on_red(recipe.title)
+        new_line
+        puts $pastel.on_red("## Ingredients ##")
         puts recipe.ingredients
-        puts ""
-        puts "## Methods ##"
+        new_line
+        puts $pastel.on_red("## Methods ##")
         puts recipe.methods
+        new_line
+    end
+
+    def new_line
+        puts ""
     end
 
     def reset_results

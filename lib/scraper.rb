@@ -9,10 +9,9 @@ class What4eat::Scraper
     end
 
     def get_dinners
-        #dinners list = dinner.css("div.carousel-with-title.dinner-top-picks div.carousel-item div.card-body a").text
-        #dinner_url = dinner.css("div.carousel-with-title.dinner-top-picks div.carousel-item div.card-body a").attribute("href").value
+        
         self.get_page.css("div.carousel-with-title.dinner-top-picks div.carousel-item div.card-body a")
-        #binding.pry
+        
     end
 
     def get_dinner_details(url)
