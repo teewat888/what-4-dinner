@@ -19,6 +19,7 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
+  pastel
   tty-prompt
 
 BUNDLED WITH
