@@ -22,7 +22,7 @@ class What4eat::CLI
         end
     
     
-        choice = $prompt.ask("what you want to do next (y/n)")
+        choice = $prompt.ask("What you want to do next (y/n)")
         if choice == 'y'
             reset_results
             start
@@ -32,7 +32,8 @@ class What4eat::CLI
     end
 
     def api_menu
-        keyword = $prompt.ask("what you want to have tonight?")
+        keyword = $prompt.ask("what you want to have tonight?", required: true)
+    
         results = What4eat::APIClient.get_recipes_by_keyword(keyword)
         if total_results(results) > 0
             What4eat::Recipe.new_from_api(results)

@@ -31,6 +31,7 @@ class What4eat::Scraper
             el.search('.tooltip').remove
             "Step #{index+1}: #{el.text.strip}"
             end
+       
         What4eat::Dinner.add_details_from_scraper(url, ingredients, methods)
     
     end

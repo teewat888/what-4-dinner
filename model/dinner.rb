@@ -19,8 +19,6 @@ class What4eat::Dinner
         dinner
     end
 
-  
-
     def self.find_by(url)
         @@all.detect {|el| el.url == url}
     end
