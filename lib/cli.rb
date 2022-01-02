@@ -21,9 +21,10 @@ class What4eat::CLI
             exit
         end
     
-    
-        choice = $prompt.ask("What you want to do next (y/n)")
-        if choice == 'y'
+    choices = [{name: "Main Menu", value: "main_menu"},
+                {name: "Exit", value: "exit"}]
+        choice = $prompt.select("What you want to do next?", choices)
+        if choice == 'main_menu'
             reset_results
             start
         else 
