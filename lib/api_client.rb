@@ -3,7 +3,7 @@ class What4eat::APIClient
     BASE_URL = 'https://api.spoonacular.com/recipes'
 
     def self.get_recipes_by_keyword(keyword)
-        uri = URI.parse(BASE_URL + '/complexSearch?query=' + keyword + '&apiKey=' + API_KEY)
+        uri = URI.parse(BASE_URL + '/complexSearch?query=' + keyword + '&apiKey=' + API_KEY + '&number=50')
         results = uri_json(uri)
     end
 
