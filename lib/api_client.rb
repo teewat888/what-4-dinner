@@ -7,6 +7,11 @@ class What4eat::APIClient
         results = uri_json(uri)
     end
 
+    def self.get_recipes_by_keyword_with_offset(keyword,offset,number)
+        uri = URI.parse(BASE_URL + '/complexSearch?query=' + keyword + '&apiKey=' + API_KEY + '&offset=' + offset.to_s + '&number=' + number.to_s)
+        results = uri_json(uri)
+    end
+
     def self.get_recipe_details(id)
         uri = URI.parse(BASE_URL + '/' + id.to_s + '/information?instructionsRequired=true&apiKey=' + API_KEY)
         results = uri_json(uri)   
