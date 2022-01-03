@@ -33,8 +33,12 @@ class What4eat::CLI
     end
 
     def api_menu
+        spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :pulse_2)
+
+        
         keyword = $prompt.ask("what you want to have tonight?", required: true)
-    
+        
+        
         results = What4eat::APIClient.get_recipes_by_keyword(keyword)
         offset = 0
         number = What4eat::Recipe.result_per_page(results)
@@ -42,6 +46,7 @@ class What4eat::CLI
 
         if total_results(results) > 0
             #What4eat::Recipe.new_from_api(results)
+            spinner.auto_spin # Automatic animation with default interval
             add_to_recipe(results)
 
             while total_results - number - offset > 0
@@ -49,6 +54,7 @@ class What4eat::CLI
                 results = What4eat::APIClient.get_recipes_by_keyword_with_offset(keyword, offset, number)
                 add_to_recipe(results)
             end
+            spinner.stop("Done!") # Stop animation
             id = $prompt.enum_select("What recipe you like to cook?", recipe_list_items, per_page: 10)
 
             recipe_details = What4eat::APIClient.get_recipe_details(id)
