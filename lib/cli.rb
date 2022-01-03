@@ -49,7 +49,7 @@ class What4eat::CLI
                 results = What4eat::APIClient.get_recipes_by_keyword_with_offset(keyword, offset, number)
                 add_to_recipe(results)
             end
-            id = $prompt.select("What recipe you like to cook?", recipe_list_items, per_page: 10)
+            id = $prompt.enum_select("What recipe you like to cook?", recipe_list_items, per_page: 10)
 
             recipe_details = What4eat::APIClient.get_recipe_details(id)
 
