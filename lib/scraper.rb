@@ -1,4 +1,4 @@
-class What4eat::Scraper
+class What4Dinner::Scraper
     def get_page
         #scrape from top ten dinners right now (https://www.taste.com.au/dinner)
         Nokogiri::HTML(open("https://www.taste.com.au/dinner"))
@@ -28,7 +28,7 @@ class What4eat::Scraper
             "Step #{index+1}: #{el.text.strip}"
             end
        
-        What4eat::Dinner.add_details_from_scraper(url, ingredients, methods)
+        What4Dinner::Dinner.add_details_from_scraper(url, ingredients, methods)
     end
 
     def make_dinners
@@ -36,7 +36,7 @@ class What4eat::Scraper
             title = dinner.css("h3").text         
             url = dinner.attribute("href").value
             if title != ""
-                What4eat::Dinner.new(title, url)
+                What4Dinner::Dinner.new(title, url)
             end
         end
     end

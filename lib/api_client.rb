@@ -1,4 +1,4 @@
-class What4eat::APIClient
+class What4Dinner::APIClient
     ## API client to connect to spoonacular api
     BASE_URL = 'https://api.spoonacular.com/recipes'
 

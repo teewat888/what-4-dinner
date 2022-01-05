@@ -2,4 +2,4 @@
 
 require_relative "../config/environment.rb"
 
-What4eat::CLI.new.start
+What4Dinner::CLI.new.start

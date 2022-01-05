@@ -40,7 +40,7 @@ class TestScraper
         self.get_dinners.each do |dinner|
             name = dinner.text
             url = dinner.attribute("href").value
-            What4eat::Dinner.new(name, url)
+            What4Dinner::Dinner.new(name, url)
         end
     end
 end

@@ -1,4 +1,4 @@
-class What4eat::Recipe
+class What4Dinner::Recipe
     attr_accessor :id, :title, :url, :ingredients, :methods
 
     @@all = []

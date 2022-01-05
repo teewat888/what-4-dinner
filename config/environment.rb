@@ -7,7 +7,7 @@ require 'tty-spinner'
 #require 'openssl'
 
 
-require_relative "../lib/what4eat.rb"
+require_relative "../lib/what4dinner.rb"
 require_relative "../lib/api_client.rb"
 require_relative "../lib/cli.rb"
 require_relative "../lib/scraper.rb"
