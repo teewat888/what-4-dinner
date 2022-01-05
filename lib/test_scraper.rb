@@ -17,7 +17,7 @@ class TestScraper
         #dinners list = dinner.css("div.carousel-with-title.dinner-top-picks div.carousel-item div.card-body a").text
         #dinner_url = dinner.css("div.carousel-with-title.dinner-top-picks div.carousel-item div.card-body a").attribute("href").value
         self.get_page.css("div.carousel-with-title.dinner-top-picks div.carousel-item div.card-body a")
-        #binding.pry
+        binding.pry
     end
 
     def get_dinner_details
@@ -45,4 +45,4 @@ class TestScraper
     end
 end
 
-TestScraper.new.get_dinner_details
+TestScraper.new.get_dinners

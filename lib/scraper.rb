@@ -9,9 +9,7 @@ class What4eat::Scraper
     end
 
     def get_dinners
-        
-        self.get_page.css("div.carousel-with-title.dinner-top-picks div.carousel-item div.card-body a")
-        
+        dinners = self.get_page.css("div.carousel-with-title.dinner-top-picks div.carousel-item div.card-body a")
     end
 
     def get_dinner_details(url)
@@ -21,11 +19,9 @@ class What4eat::Scraper
     def make_details(url)
         details = self.get_dinner_details(url)
         
-
         ingredients = details.css("div#tabIngredients ul li div.ingredient-description").collect do |el|
             el.text.delete("\n").strip
-            end
-            
+            end            
             
         methods = details.css("div#tabMethodSteps ul li div.recipe-method-step-content").collect.with_index do |el, index|
             el.search('.tooltip').remove
@@ -33,12 +29,11 @@ class What4eat::Scraper
             end
        
         What4eat::Dinner.add_details_from_scraper(url, ingredients, methods)
-    
     end
 
     def make_dinners
         self.get_dinners.each do |dinner|
-            title = dinner.text
+            title = dinner.css("h3").text         
             url = dinner.attribute("href").value
             What4eat::Dinner.new(title, url)
         end
