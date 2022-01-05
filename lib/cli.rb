@@ -3,12 +3,9 @@ $pastel = Pastel.new
 
 class What4eat::CLI
 
-    def start
-   # What4eat::Scraper.new.make_dinners
-    
+    def start    
     system("clear")
-    # keyword = prompt.ask("what you want to have tonight")
-    
+    banner
     choices = [{name: "Search dinner ideas by keyword", value: "useAPI"},
                     {name: "Top 10 Dinner ideas from taste.com.au", value: "useScraper"},
                 {name: "Exit", value: "exit"}]
@@ -20,7 +17,6 @@ class What4eat::CLI
         else
             exit
         end
-    
     end
 
     def end_menu
@@ -36,12 +32,8 @@ class What4eat::CLI
     end
 
     def api_menu
-        spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :pulse_2)
-
-        
+        spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :pulse_2)        
         keyword = $prompt.ask("what you want to have tonight?", required: true)
-        
-        
         results = What4eat::APIClient.get_recipes_by_keyword(keyword)
         offset = 0
         number = result_per_page(results)
@@ -107,6 +99,14 @@ class What4eat::CLI
         puts $pastel.on_red("## Methods ##")
         puts recipe.methods
         new_line
+    end
+
+    def banner
+        puts "#####################################"
+        puts "####  What 4 eat cli application ####"
+        puts "####         version 1.00        ####"
+        puts "#####################################"
+
     end
 
     def new_line
