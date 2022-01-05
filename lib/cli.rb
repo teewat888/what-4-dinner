@@ -21,7 +21,10 @@ class What4eat::CLI
             exit
         end
     
-    choices = [{name: "Main Menu", value: "main_menu"},
+    end
+
+    def end_menu
+        choices = [{name: "Main Menu", value: "main_menu"},
                 {name: "Exit", value: "exit"}]
         choice = $prompt.select("What you want to do next?", choices)
         if choice == 'main_menu'
@@ -41,8 +44,8 @@ class What4eat::CLI
         
         results = What4eat::APIClient.get_recipes_by_keyword(keyword)
         offset = 0
-        number = What4eat::Recipe.result_per_page(results)
-        total_results = What4eat::Recipe.total_results(results)
+        number = result_per_page(results)
+        total_results = total_results(results)
 
         if total_results(results) > 0
             #What4eat::Recipe.new_from_api(results)
@@ -62,6 +65,7 @@ class What4eat::CLI
             recipe = What4eat::Recipe.add_details_from_api(id, recipe_details)
 
             print_recipe(recipe)
+            end_menu
         else
             puts "can not find your query, can you try something like pasta"
             api_menu
@@ -76,6 +80,7 @@ class What4eat::CLI
         dinner_details = What4eat::Scraper.new.make_details(url)
 
         print_recipe(dinner_details)
+        end_menu
     end
 
     def dinner_list_items
@@ -118,6 +123,10 @@ class What4eat::CLI
 
     def total_results(res)
         What4eat::Recipe.total_results(res)
+    end
+
+    def result_per_page(res)
+        What4eat::Recipe.result_per_page(res)
     end
 
 end
