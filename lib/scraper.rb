@@ -35,7 +35,9 @@ class What4eat::Scraper
         self.get_dinners.each do |dinner|
             title = dinner.css("h3").text         
             url = dinner.attribute("href").value
-            What4eat::Dinner.new(title, url)
+            if title != ""
+                What4eat::Dinner.new(title, url)
+            end
         end
     end
 end
