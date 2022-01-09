@@ -110,7 +110,9 @@ class What4Dinner::CLI
 
     def print_recipe(recipe)
         new_line
-        puts $pastel.on_red(recipe.title)
+        print $pastel.on_red(recipe.title) + ' '
+        print "Cooking time # #{recipe.cooking_times}m || " if recipe.class.method_defined? :cooking_times
+        puts "Servings # #{recipe.servings}" if recipe.class.method_defined? :servings
         new_line
         puts $pastel.on_red("## Ingredients ##")
         puts recipe.ingredients
@@ -125,7 +127,6 @@ class What4Dinner::CLI
         puts "#### What 4 dinner cli application ####"
         puts "####         version 1.00        ######"
         puts "#######################################"
-
     end
 
     def new_line

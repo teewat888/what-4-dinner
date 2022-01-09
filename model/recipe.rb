@@ -1,5 +1,5 @@
 class What4Dinner::Recipe
-    attr_accessor :id, :title, :url, :ingredients, :methods
+    attr_accessor :id, :title, :url, :ingredients, :methods, :servings, :cooking_times
 
     @@all = []
     @@unit = 'metric'
@@ -21,6 +21,8 @@ class What4Dinner::Recipe
         recipe = find(id)
         recipe.ingredients = format_ingredients(res)
         recipe.methods = format_methods(res)
+        recipe.servings = res["servings"]
+        recipe.cooking_times = res["readyInMinutes"]
         recipe
     end
 
