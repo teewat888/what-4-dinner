@@ -2,6 +2,7 @@ class What4Dinner::Recipe
     attr_accessor :id, :title, :url, :ingredients, :methods
 
     @@all = []
+    @@unit = 'metric'
     
     def initialize(id = nil, title = nil)
         @id = id
@@ -29,7 +30,8 @@ class What4Dinner::Recipe
 
     def self.format_ingredients(res)
         res["extendedIngredients"].collect do |el|
-            el["originalString"]
+            return_string = el["measures"][self.unit]["amount"].to_s + ' ' + el["measures"][self.unit]["unitShort"] + ' ' + el["nameClean"]
+            return_string
         end
     end
 
@@ -43,6 +45,10 @@ class What4Dinner::Recipe
 
     def self.all
         @@all
+    end
+
+    def self.unit
+        @@unit
     end
 
     def self.total_results(res)

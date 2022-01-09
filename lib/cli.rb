@@ -40,10 +40,9 @@ class What4Dinner::CLI
         total_results = total_results(results)
 
         if total_results(results) > 0
-            #What4Dinner::Recipe.new_from_api(results)
             spinner.auto_spin # Automatic animation with default interval
             add_to_recipe(results)
-
+            #check still have result in the pagination
             while total_results - number - offset > 0
                 offset += number
                 results = What4Dinner::APIClient.get_recipes_by_keyword_with_offset(keyword, offset, number)
@@ -102,10 +101,10 @@ class What4Dinner::CLI
     end
 
     def banner
-        puts "#####################################"
-        puts "####  What 4 eat cli application ####"
-        puts "####         version 1.00        ####"
-        puts "#####################################"
+        puts "#######################################"
+        puts "#### What 4 dinner cli application ####"
+        puts "####         version 1.00        ######"
+        puts "#######################################"
 
     end
 
