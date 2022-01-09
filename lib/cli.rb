@@ -41,7 +41,7 @@ class What4Dinner::CLI
             start
         elsif choice == 'unit'
             unit_menu
-        elsif
+        elsif choice == 'back'
             back_menu(from)
         else
             exit

@@ -36,7 +36,7 @@ class What4Dinner::Recipe
 
     def self.format_ingredients(res)
         res["extendedIngredients"].collect do |el|
-            return_string = el["measures"][self.unit]["amount"].to_s + ' ' + el["measures"][self.unit]["unitShort"] + ' ' + el["nameClean"]
+            return_string = "#{el['measures'][self.unit]['amount'].to_s || ''}  #{el['measures'][self.unit]['unitShort'] || ''} #{el['nameClean'] || ''}"
             return_string
         end
     end
@@ -74,7 +74,7 @@ class What4Dinner::Recipe
     end
 
     def self.result_per_page(res)
-        res["number"]
+        res["number"] || 0
     end
 
 end
