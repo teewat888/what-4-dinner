@@ -77,8 +77,4 @@ class What4Dinner::Recipe
         res["number"]
     end
 
-    def self.offset(res)
-        res["offset"]
-    end
-
 end

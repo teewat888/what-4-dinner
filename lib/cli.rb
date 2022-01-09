@@ -1,7 +1,11 @@
-$prompt = TTY::Prompt.new
-$pastel = Pastel.new
-
 class What4Dinner::CLI
+
+    attr_accessor :prompt, :pastel
+
+    def initialize
+        @prompt = TTY::Prompt.new
+        @pastel = Pastel.new
+    end
 
     def start    
     system("clear")
@@ -9,7 +13,7 @@ class What4Dinner::CLI
     choices = [{name: "Search dinner ideas by keyword", value: "useAPI"},
                     {name: "Top 10 Dinner ideas from taste.com.au", value: "useScraper"},
                 {name: "Exit", value: "exit"}]
-    main_choice = $prompt.select("What do you like to do?", choices)
+    main_choice = prompt.select("What do you like to do?", choices)
         if main_choice == "useAPI"
             api_menu
         elsif main_choice == "useScraper"
@@ -28,7 +32,7 @@ class What4Dinner::CLI
             choices = [{name: "Main Menu", value: "main_menu"},
                 {name: "Exit", value: "exit"}]
         end
-        choice = $prompt.select("?", choices)
+        choice = prompt.select("?", choices)
         if choice == 'main_menu'
             reset_results
             start
@@ -42,7 +46,7 @@ class What4Dinner::CLI
     def unit_menu
         choices = [{name: "Metice", value: "metric"},
                 {name: "US", value: "us"}]
-        choice = $prompt.select("Which unit?", choices)
+        choice = prompt.select("Which unit?", choices)
         set_unit(choice)
         print_recipe(current_recipe)
         end_menu('api')
@@ -51,7 +55,7 @@ class What4Dinner::CLI
 
     def api_menu
         spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :pulse_2)        
-        keyword = $prompt.ask("what you want to have tonight?", required: true)
+        keyword = prompt.ask("what you want to have tonight?", required: true)
         results = What4Dinner::APIClient.get_recipes_by_keyword(keyword)
         offset = 0
         number = result_per_page(results)
@@ -67,7 +71,7 @@ class What4Dinner::CLI
                 add_to_recipe(results)
             end
             spinner.stop("Done!") # Stop animation
-            id = $prompt.enum_select("What recipe you like to cook?", recipe_list_items, per_page: 10)
+            id = prompt.enum_select("What recipe you like to cook?", recipe_list_items, per_page: 10)
 
             recipe_details = What4Dinner::APIClient.get_recipe_details(id)
 
@@ -86,7 +90,7 @@ class What4Dinner::CLI
     def scraper_menu
         What4Dinner::Scraper.new.make_dinners
 
-        url = $prompt.select("Which one of top ten dinner you like to see the recipe?", dinner_list_items, per_page: 10)
+        url = prompt.select("Which one of top ten dinner you like to see the recipe?", dinner_list_items, per_page: 10)
 
         dinner_details = What4Dinner::Scraper.new.make_details(url)
 
@@ -110,14 +114,15 @@ class What4Dinner::CLI
 
     def print_recipe(recipe)
         new_line
-        print $pastel.on_red(recipe.title) + ' '
+        print pastel.on_red(recipe.title) + ' '
         print "Cooking time # #{recipe.cooking_times}m || " if recipe.class.method_defined? :cooking_times
-        puts "Servings # #{recipe.servings}" if recipe.class.method_defined? :servings
+        print "Servings # #{recipe.servings}" if recipe.class.method_defined? :servings
         new_line
-        puts $pastel.on_red("## Ingredients ##")
+        new_line
+        puts pastel.on_red("## Ingredients ##")
         puts recipe.ingredients
         new_line
-        puts $pastel.on_red("## Methods ##")
+        puts pastel.on_red("## Methods ##")
         puts recipe.methods
         new_line
     end
