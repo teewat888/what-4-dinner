@@ -19,17 +19,35 @@ class What4Dinner::CLI
         end
     end
 
-    def end_menu
-        choices = [{name: "Main Menu", value: "main_menu"},
+    def end_menu(from)
+        if (from == 'api')
+            choices = [{name: "Main Menu", value: "main_menu"},
+            {name: "Change Unit", value: "unit"},    
+            {name: "Exit", value: "exit"}]
+        else
+            choices = [{name: "Main Menu", value: "main_menu"},
                 {name: "Exit", value: "exit"}]
-        choice = $prompt.select("What you want to do next?", choices)
+        end
+        choice = $prompt.select("?", choices)
         if choice == 'main_menu'
             reset_results
             start
-        else 
+        elsif choice == 'unit'
+            unit_menu
+        else
             exit
         end
     end
+
+    def unit_menu
+        choices = [{name: "Metice", value: "metric"},
+                {name: "US", value: "us"}]
+        choice = $prompt.select("Which unit?", choices)
+        set_unit(choice)
+        print_recipe(current_recipe)
+        end_menu('api')
+    end
+
 
     def api_menu
         spinner = TTY::Spinner.new("[:spinner] Loading ...", format: :pulse_2)        
@@ -54,9 +72,11 @@ class What4Dinner::CLI
             recipe_details = What4Dinner::APIClient.get_recipe_details(id)
 
             recipe = What4Dinner::Recipe.add_details_from_api(id, recipe_details)
+            recipe_h = {id: id, res: recipe_details}
+            set_current_recipe(recipe_h)
 
             print_recipe(recipe)
-            end_menu
+            end_menu('api')
         else
             puts "can not find your query, can you try something like pasta"
             api_menu
@@ -71,7 +91,7 @@ class What4Dinner::CLI
         dinner_details = What4Dinner::Scraper.new.make_details(url)
 
         print_recipe(dinner_details)
-        end_menu
+        end_menu('scraper')
     end
 
     def dinner_list_items
@@ -126,6 +146,21 @@ class What4Dinner::CLI
 
     def result_per_page(res)
         What4Dinner::Recipe.result_per_page(res)
+    end
+
+    def set_unit(unit)
+        What4Dinner::Recipe.unit = unit
+    end
+
+    def set_current_recipe(recipe)
+        What4Dinner::Recipe.current_recipe = recipe
+    end
+
+    def current_recipe
+        What4Dinner::Recipe.current_recipe
+    end
+
+    def update_recipe
     end
 
 end

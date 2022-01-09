@@ -3,6 +3,7 @@ class What4Dinner::Recipe
 
     @@all = []
     @@unit = 'metric'
+    @@current_recipe = nil
     
     def initialize(id = nil, title = nil)
         @id = id
@@ -22,6 +23,11 @@ class What4Dinner::Recipe
         recipe.ingredients = format_ingredients(res)
         recipe.methods = format_methods(res)
         recipe
+    end
+
+    def self.update_recipe(current_recipe)
+
+        self.add_details_from_api(current_recipe[:id], current_recipe[:res])
     end
 
     def self.find(id)
@@ -49,6 +55,18 @@ class What4Dinner::Recipe
 
     def self.unit
         @@unit
+    end
+
+    def self.unit=(unit)
+        @@unit = unit
+    end
+
+    def self.current_recipe
+        self.update_recipe(@@current_recipe)
+    end
+
+    def self.current_recipe=(recipe_h)
+        @@current_recipe = recipe_h
     end
 
     def self.total_results(res)
