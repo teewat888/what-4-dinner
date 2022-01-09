@@ -151,16 +151,13 @@ class What4Dinner::CLI
     def set_unit(unit)
         What4Dinner::Recipe.unit = unit
     end
-
+    #require hash of id and result set of current recipe
     def set_current_recipe(recipe)
         What4Dinner::Recipe.current_recipe = recipe
     end
 
     def current_recipe
         What4Dinner::Recipe.current_recipe
-    end
-
-    def update_recipe
     end
 
 end

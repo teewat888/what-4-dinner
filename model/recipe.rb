@@ -3,7 +3,7 @@ class What4Dinner::Recipe
 
     @@all = []
     @@unit = 'metric'
-    @@current_recipe = nil
+    @@current_recipe = nil #store hash of recipe id and result set of the id
     
     def initialize(id = nil, title = nil)
         @id = id
@@ -14,8 +14,7 @@ class What4Dinner::Recipe
     def self.new_from_api(res)
         res["results"].each do |el|
             self.new(el["id"], el["title"])
-        end
-       
+        end 
     end
 
     def self.add_details_from_api(id, res)
@@ -26,7 +25,6 @@ class What4Dinner::Recipe
     end
 
     def self.update_recipe(current_recipe)
-
         self.add_details_from_api(current_recipe[:id], current_recipe[:res])
     end
 
@@ -80,6 +78,5 @@ class What4Dinner::Recipe
     def self.offset(res)
         res["offset"]
     end
-
 
 end
