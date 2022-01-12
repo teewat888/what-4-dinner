@@ -87,7 +87,7 @@ class What4Dinner::CLI
             api_get_details
             
         else
-            puts "can not find your query, can you try something like pasta"
+            puts "Please try something like pasta"
             api_menu
         end
     end
@@ -114,9 +114,9 @@ class What4Dinner::CLI
 
     def scraper_menu_detail
         if !search_results.nil?
-            url = prompt.select("Which one of top ten dinner you like to see the recipe?", search_results, per_page: 10)
+            url = prompt.enum_select("Which one of top ten dinner you like to see the recipe?", search_results, per_page: 10)
         else
-            url = prompt.select("Which one of top ten dinner you like to see the recipe?", dinner_list_items, per_page: 10)
+            url = prompt.enum_select("Which one of top ten dinner you like to see the recipe?", dinner_list_items, per_page: 10)
         end
 
         dinner_details = What4Dinner::Scraper.new.make_details(url)
