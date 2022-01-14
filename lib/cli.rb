@@ -53,7 +53,8 @@ class What4Dinner::CLI
                 {name: "US", value: "us"}]
         choice = prompt.select("Which unit?", choices)
         set_unit(choice)
-        print_recipe(current_recipe)
+        recipe = current_recipe
+        print_recipe(recipe)
         end_menu('api')
     end
 

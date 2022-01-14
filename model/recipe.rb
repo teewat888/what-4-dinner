@@ -59,6 +59,7 @@ class What4Dinner::Recipe
 
     def self.unit=(unit)
         @@unit = unit
+        
     end
 
     def self.current_recipe
