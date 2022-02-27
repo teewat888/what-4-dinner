@@ -1,11 +1,11 @@
 class What4Dinner::Scraper
     def get_page
         #scrape from top ten dinners right now (https://www.taste.com.au/dinner)
-        Nokogiri::HTML(open("https://www.taste.com.au/dinner"))
+        Nokogiri::HTML(open("https://www.taste.com.au/dinner", 'User-Agent' => 'firefox'))
     end
 
     def get_page_details(url)
-        Nokogiri::HTML(open("https://www.taste.com.au"+url))
+        Nokogiri::HTML(open("https://www.taste.com.au"+url, 'User-Agent' => 'firefox'))
     end
 
     def get_dinners
